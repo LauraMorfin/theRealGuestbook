@@ -1,16 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to our #{title}!
-  .container
-    h2 Leave us a note!
-    form.form-inline
-      .form-group
-        label(for='email') Email:
-        input#email.form-control(type='email', placeholder='Enter email')
-        label(for='pwd') Password:
-        input#pwd.form-control(type='password', placeholder='Enter password')
-        label(for='Message') Message:
-        input#text.form-control(type='text-field',  placeholder='Leave a message')
-        button.btn.btn-primary#btnSubmit(type="submit") Send!
+   h1.
+    Sign my guestbook!
+   form#formAddUser(name="adduser", method = "post", action="/adduser")
+     input.form-group#inputUserName(type="test", placeholder="Name", name="name" require)
+     input.form-group#inputUserEmail(type="test", placeholder="Email", name="email")
+     input.form-group#inputUserComment(type="test", placeholder="Comment", name="message")
+     button.btn.btn-default#btnSubmmit(type="submit")  submit
+
+   table.table.table-striped
+    thead
+     tr
+      td Name
+      td Email
+      td Comments
+      td
+    tbody
+     each user, i in userlist
+      tr
+       td(href="mailto:#{user.email}")= user.username
+       td #{user.email}
+       td #{user.comment}
+       td
+        a.btn.btn-danger(href="#{user._id}") Delete
