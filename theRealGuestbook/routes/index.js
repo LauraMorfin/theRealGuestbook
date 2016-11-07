@@ -46,6 +46,20 @@ router.post('/postMessage', function(req, res){
   });
 
 
+  //delete user
+  router.get('/:id', function(req, res){
+      var db = req.db;
+      var objId = req.params.id;
+      var collection = db.get('usercollection');
+      collection.remove({"_id": objId}, function(err, docs) {
+          if (err) return err;
+          console.log(docs);
+          res.send(docs);
+      });
+      res.redirect('/guestbook');
+  });
+
+
 
 
 /* GET single view page. */
