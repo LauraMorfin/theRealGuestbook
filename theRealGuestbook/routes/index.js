@@ -12,7 +12,6 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
-
 /* GET guestbook page. */
 router.get('/guestbook', function(req, res) {
   var db = req.db;
@@ -45,8 +44,7 @@ router.post('/postMessage', function(req, res){
     });
   });
 
-
-  //delete user
+  //delete message
   router.get('/:id', function(req, res){
       var db = req.db;
       var objId = req.params.id;
@@ -59,7 +57,24 @@ router.post('/postMessage', function(req, res){
       res.redirect('/guestbook');
   });
 
+  //to singleview message page
+  router.get('/singleView/:id', function(req, res){
+      var db = req.db;
+      var id = req.params.id;
 
+
+      var objectId = new ObjectID(id);
+      var collection = db.get('usercollection');
+      collection.find({_id: objectId}, {}, function(err, result){
+        if(err){
+          res.send("YOU BROKE SOMETHING");
+        } else {
+          res.render('singleView',{
+            "message" : result[0]
+          });
+        }
+      });
+  });
 
 
 /* GET single view page. */

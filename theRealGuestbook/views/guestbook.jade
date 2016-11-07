@@ -19,8 +19,9 @@ block content
     tbody
      each user, i in userlist
       tr
-       td(href="mailto:#{user.email}")= user.name
+       td #{user.name}
        td #{user.email}
        td #{user.message}
        td
-        a.btn.btn-danger(href=" #{user._id}") Delete
+        a.btn.btn-success(href="/singleView/#{user._id}") View Message
+        a.btn.btn-danger(href="#{user._id}") Delete
