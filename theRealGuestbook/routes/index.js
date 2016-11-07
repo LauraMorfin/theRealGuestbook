@@ -23,18 +23,28 @@ router.get('/guestbook', function(req, res) {
     });
   });
 });
-//
-// /* from working app... */
-// router.route('/guestbook')
-//   .get((req, res) => {
-//     var db = req.db;
-//     var collection = db.get('guestlist');
-//     collection.find({}, {}, function (e, docs) {
-//       res.render('guestbook', {
-//         guestlist: docs,
-//       });
-//     });
-//   })
+
+// post to the database
+router.post('/postMessage', function(req, res){
+  var db = req.db;
+  var email = req.body.useremail;
+  var name = req.body.username;
+  var message = req.body.usermessage;
+  var collection = db.get('usercollection');
+
+    collection.insert({
+      "email" : email,
+      "name" : name,
+      "message" : message
+    }, function (err,doc) {
+      if (err) {
+        res.send("There was a problem!  What did you do?!");
+      } else {
+        res.redirect("/guestbook");
+      }
+    });
+  });
+
 
 
 

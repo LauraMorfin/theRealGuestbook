@@ -3,10 +3,10 @@ extends layout
 block content
    h1.
     Sign my guestbook!
-   form#formAddUser(name="adduser", method = "post", action="/adduser")
-     input.form-group#inputUserName(type="test", placeholder="Name", name="name" require)
-     input.form-group#inputUserEmail(type="test", placeholder="Email", name="email")
-     input.form-group#inputUserComment(type="test", placeholder="Comment", name="message")
+   form#formAddUser(name="postMessage", method = "post", action="/postMessage")
+     input.form-group#inputUserEmail(type="text", placeholder="Email", name="useremail")
+     input.form-group#inputUserName(type="text", placeholder="Name", name="username")
+     input.form-group#inputUserComment(type="text", placeholder="Message", name="usermessage")
      button.btn.btn-default#btnSubmmit(type="submit")  submit
 
    table.table.table-striped
@@ -19,8 +19,8 @@ block content
     tbody
      each user, i in userlist
       tr
-       td(href="mailto:#{user.email}")= user.username
+       td(href="mailto:#{user.email}")= user.name
        td #{user.email}
-       td #{user.comment}
+       td #{user.message}
        td
         a.btn.btn-danger(href="#{user._id}") Delete
